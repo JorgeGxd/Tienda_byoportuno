@@ -1,0 +1,95 @@
+
+/* Logo */
+
+.navbar-container {
+  display: flex;
+  align-items: center; /* Centra verticalmente */
+  justify-content: space-between; /* Logo a la izquierda, links a la derecha */
+  padding: 0 20px; /* Espaciado desde los bordes */
+  background-color: #2B83B0; /* Cambia si tienes otro color */
+  height: 110px; /* Ajusta la altura del navbar */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.navbar-logo img {
+  height: 110px; /* Ajusta el tamaño del logo */
+  margin-right: 30px; /* separación entre logo y links */
+  cursor: pointer;
+}
+
+.nav {
+  list-style: none;
+  display: flex;
+  gap: 30px; /* Espaciado entre los enlaces */
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item a {
+  text-decoration: none;
+  color: #000000;
+  font-weight: 500;
+  padding: 6px 12px; /* espacio dentro del "cuadro" */
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+/* Hover */
+.nav-item a:hover {
+  background-color: #FDE9A9;
+}
+
+/* Estilo para el link activo */
+.nav-item a.active {
+  background-color: #FDE9A9;
+  color: #000000;
+  border-radius: 8px;
+}
+
+/* Botón carrito */
+.cart-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #333;
+}
+
+.cart-icon {
+  width: 50px;
+  height: 50px;
+}
+
+/* Badge */
+.cart-badge {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background-color: #e63946;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+
+.login-button {
+  margin-left: 15px;
+  padding: 8px 14px;
+  background-color: #f4c542;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+  transition: background 0.3s;
+}
+
+.login-button:hover {
+  background-color: #e6b800;
+}
+
+
+  
+  

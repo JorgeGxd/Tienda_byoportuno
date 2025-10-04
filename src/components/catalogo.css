@@ -1,0 +1,22 @@
+.catalogo-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 30px;
+}
+
+.producto-card {
+  background: #fff;
+  border: 2px solid #ddd;
+  border-radius: 15px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+}
+
+.producto-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+}

@@ -1,0 +1,58 @@
+.inicio-container {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+/* Banner */
+.inicio-banner img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 20px;
+  margin-bottom: 30px;
+}
+
+/* Grid para misión y visión */
+.inicio-grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  justify-content: center;
+  max-width: 1200px;  /* 👈 ancho máximo del grid */
+  margin: 0 auto;
+}
+
+/* Cuadros amarillos */
+.inicio-card {
+  background-color: #ffefb0;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.inicio-card h2 {
+  margin-bottom: 10px;
+  font-size: 9rem;
+  color: #333;
+}
+
+.inicio-card p {
+  line-height: 1.5;
+  font-size: 1.5rem;
+  color: #444;
+}
+
+/* Imágenes */
+.inicio-img-box img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .inicio-grid-container {
+    grid-template-columns: 1fr; /* Todo en una sola columna */
+  }
+}
+

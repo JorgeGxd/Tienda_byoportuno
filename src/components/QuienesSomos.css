@@ -1,0 +1,57 @@
+.quienes-container {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+/* Banner */
+.quienes-banner img{
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 20px;
+  margin-bottom: 30px;
+}
+
+/* Grid igual que Inicio */
+.quienes-grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  justify-content: center;
+  max-width: 1200px;  /* 👈 ancho máximo del grid */
+  margin: 0 auto;
+}
+
+/* Cuadros amarillos */
+.quienes-card {
+  background-color: #ffefb0;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.quienes-card h2 {
+  margin-bottom: 10px;
+  font-size: 7rem;
+  color: #333;
+}
+
+.quienes-card p {
+  line-height: 1.5;
+  font-size: 1.5rem;
+  color: #444;
+}
+
+/* Imágenes */
+.quienes-img-box img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .quienes-grid-container {
+    grid-template-columns: 1fr; /* Todo en una sola columna */
+  }
+}
