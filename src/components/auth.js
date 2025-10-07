@@ -1,6 +1,6 @@
 import express from "express";
 import mysql from "mysql2";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 const router = express.Router();

@@ -1,14 +1,20 @@
-const express = require("express");
-const cors = require("cors");
-const mysql = require("mysql2");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
+import express from "express";
+import cors from "cors";
+import mysql from "mysql2";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import authRoutes from "./auth.js"; // ✅ importamos el router de autenticación
 
 const app = express();
-app.use(cors());
+
+// ✅ Middleware
+app.use(cors({ origin: "http://localhost:3000" })); // Permitir conexión desde React
 app.use(express.json());
 
-// ================== CONFIG DB ==================
+// ✅ Rutas de autenticación
+app.use("/auth", authRoutes);
+
+// ✅ Conexión a la base de datos
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -16,25 +22,7 @@ const db = mysql.createConnection({
   database: "tienda",
 });
 
-// ================== LOGIN ==================
-app.post("/api/login", (req, res) => {
-  const { username, password } = req.body;
-
-  db.query("SELECT * FROM usuarios WHERE username = ?", [username], async (err, results) => {
-    if (err) return res.status(500).send(err);
-    if (results.length === 0) return res.status(401).json({ error: "Usuario no encontrado" });
-
-    const user = results[0];
-    const validPass = await bcrypt.compare(password, user.password);
-
-    if (!validPass) return res.status(401).json({ error: "Contraseña incorrecta" });
-
-    const token = jwt.sign({ id: user.id, rol: user.rol }, "secretkey", { expiresIn: "1h" });
-    res.json({ message: "Login exitoso", token, rol: user.rol });
-  });
-});
-
-// ================== CRUD PRODUCTOS ==================
+// ✅ CRUD de productos
 app.get("/api/productos", (req, res) => {
   db.query("SELECT * FROM productos", (err, results) => {
     if (err) return res.status(500).send(err);
@@ -54,29 +42,8 @@ app.post("/api/productos", (req, res) => {
   );
 });
 
-app.put("/api/productos/:id", (req, res) => {
-  const { id } = req.params;
-  const { nombre, descripcion, precio, cantidad, categoria } = req.body;
-  db.query(
-    "UPDATE productos SET nombre=?, descripcion=?, precio=?, cantidad=?, categoria=? WHERE id=?",
-    [nombre, descripcion, precio, cantidad, categoria, id],
-    (err) => {
-      if (err) return res.status(500).send(err);
-      res.send("Producto actualizado");
-    }
-  );
-});
+// ✅ Arranque del servidor
+app.listen(5000, () => console.log("✅ Servidor corriendo en http://localhost:5000"));
 
-app.delete("/api/productos/:id", (req, res) => {
-  const { id } = req.params;
-  db.query("DELETE FROM productos WHERE id=?", [id], (err) => {
-    if (err) return res.status(500).send(err);
-    res.send("Producto eliminado");
-  });
-});
 
-// ================== INICIAR SERVER ==================
-app.listen(5000, () => {
-  console.log("Servidor corriendo en http://localhost:5000");
-});
 

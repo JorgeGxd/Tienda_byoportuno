@@ -1,28 +1,42 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // ✅ importa el hook
 import "./login.css";
 
 function Login({ setUser }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate(); // ✅ inicializa el hook
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("http://localhost:5000/api/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password })
-    });
+    try {
+      const res = await fetch("http://localhost:5000/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    if (res.ok) {
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("rol", data.rol);
-      setUser({ username, rol: data.rol });
-    } else {
-      setError(data.error);
+      if (res.ok) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("rol", data.rol);
+        setUser({ username, rol: data.rol });
+
+        // ✅ Redirigir según el rol
+        if (data.rol === "admin") {
+          navigate("/admin");
+        } else {
+          navigate("/inicio");
+        }
+      } else {
+        setError(data.error || "Error al iniciar sesión");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Error de conexión con el servidor");
     }
   };
 
@@ -52,3 +66,4 @@ function Login({ setUser }) {
 }
 
 export default Login;
+
