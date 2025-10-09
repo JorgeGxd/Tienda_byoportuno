@@ -1,0 +1,63 @@
+.checkout-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 40px 80px;
+  gap: 40px;
+}
+
+.checkout-form {
+  flex: 1.5;
+}
+
+.checkout-summary {
+  flex: 1;
+  background-color: #fcefb2;
+  padding: 20px;
+  border-radius: 15px;
+  height: fit-content;
+}
+
+.checkout-summary h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.checkout-summary p {
+  font-size: 1.1rem;
+  margin: 8px 0;
+}
+
+.checkout-summary hr {
+  border: none;
+  height: 2px;
+  background-color: #eee;
+  margin: 15px 0;
+}
+
+.form-row {
+  display: flex;
+  gap: 10px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.btn-continuar {
+  background-color: #2c7a3f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.btn-continuar:hover {
+  background-color: #256533;
+}

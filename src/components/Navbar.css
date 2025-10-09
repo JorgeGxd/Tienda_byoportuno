@@ -48,7 +48,7 @@
 
 /* Botón carrito */
 .cart-button {
-  position: relative;
+  position: absolute;
   display: flex;
   align-items: center;
   text-decoration: none;
@@ -56,8 +56,8 @@
 }
 
 .cart-icon {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
 }
 
 /* Badge */
@@ -74,10 +74,10 @@
 }
 
 .login-button {
-  margin-left: 15px;
+  margin-left: 60px;
   padding: 8px 14px;
-  background-color: #f4c542;
-  border-radius: 8px;
+  background-color: #FDE9A9;
+  border-radius: 10px;
   border: none;
   cursor: pointer;
   font-weight: bold;

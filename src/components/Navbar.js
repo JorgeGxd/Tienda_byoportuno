@@ -73,6 +73,7 @@ function Navbar() {
           </svg>
           {/*cartCount > 0 && <span className="cart-badge">{cartCount}</span>*/}
         </Link>
+        
         {/* Botón Login / Logout */}
         {user ? (
           <button className="login-button" onClick={handleLogout}>

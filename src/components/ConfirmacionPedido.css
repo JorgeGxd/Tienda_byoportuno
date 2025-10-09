@@ -1,0 +1,45 @@
+.confirmacion-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  background-color: #fff9e6;
+  padding: 20px;
+}
+
+.confirmacion-card {
+  background: #fff8dc;
+  border-radius: 12px;
+  padding: 30px;
+  width: 500px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.confirmacion-card h2 {
+  text-align: center;
+  color: #2e7d32;
+}
+
+.pedido-info, .resumen-final {
+  background: #fff3c4;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 15px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.total {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.mensaje-final {
+  margin-top: 20px;
+  text-align: center;
+}
+

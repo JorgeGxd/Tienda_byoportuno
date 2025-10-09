@@ -1,6 +1,8 @@
 .quienes-container {
-  font-family: Arial, sans-serif;
-  padding: 20px;
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+  background-color: #fffdf7;
+  padding-bottom: 3rem;
 }
 
 /* Banner */

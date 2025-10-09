@@ -1,22 +1,112 @@
+.catalogo-page {
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+  background-color: #fffdf7;
+  padding-bottom: 3rem;
+}
+
+.catalogo-banner img{
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 20px;
+  margin-bottom: 30px;
+}
+
+.titulo-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2rem auto;
+  padding: 0 4rem;
+  flex-wrap: wrap;
+}
+
+.titulo-section h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: "Fredoka One", cursive;
+}
+
+.botones-orden {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.botones-orden button {
+  border: 1px solid #ccc;
+  border-radius: 50px;
+  padding: 0.4rem 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+.botones-orden button:hover {
+  background-color: #d9ead3;
+}
+
+.botones-orden button.activo {
+  background-color: #588157;
+  color: white;
+  border: 1px solid #588157;
+}
+
 .catalogo-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 20px;
-  padding: 30px;
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
 
 .producto-card {
-  background: #fff;
-  border: 2px solid #ddd;
-  border-radius: 15px;
-  padding: 15px;
-  text-align: center;
-  box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+  background-color: #fff7d6;
+  border-radius: 1rem;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.producto-card img {
-  width: 100%;
+.producto-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+}
+
+.imagen-container {
   height: 180px;
-  object-fit: cover;
-  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.imagen-container img {
+  max-height: 160px;
+  width: auto;
+  object-fit: contain;
+}
+
+.producto-info {
+  padding: 1rem;
+}
+
+.producto-info h3 {
+  margin-bottom: 0.3rem;
+  font-size: 1.1rem;
+}
+
+.producto-info .precio {
+  color: #2b7a0b;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.producto-info .descripcion {
+  color: #5c5c5c;
+  font-size: 0.9rem;
 }
