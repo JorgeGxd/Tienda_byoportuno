@@ -25,14 +25,14 @@ const db = mysql.createConnection({
 });
 
 // Configuración de multer (carpeta para guardar imágenes)
-/*const storage = multer.diskStorage({
+const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "uploads/"); // carpeta donde se guardarán las imágenes
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + path.extname(file.originalname)); // nombre único
   },
-});*/
+});
 
 const upload = multer({ storage });
 

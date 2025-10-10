@@ -8,23 +8,27 @@ function Carrito() {
   const costoEnvio = 35;
   const navigate = useNavigate();
 
-  // 🛒 Cargar carrito desde localStorage al iniciar y al cambiar localStorage
+  // 🛒 Cargar carrito desde localStorage
   const cargarCarrito = () => {
     const carritoGuardado = JSON.parse(localStorage.getItem("carrito")) || [];
     setCarrito(carritoGuardado);
   };
 
+  // 🔁 Cargar carrito al iniciar y escuchar cambios
   useEffect(() => {
     cargarCarrito();
 
-    // 🔄 Escuchar cambios del carrito desde otras pestañas o componentes
+    // Escucha cambios del carrito (otras pestañas o componentes)
     window.addEventListener("storage", cargarCarrito);
+    window.addEventListener("cartUpdated", cargarCarrito);
 
-    // Limpieza del listener al desmontar
-    return () => window.removeEventListener("storage", cargarCarrito);
+    return () => {
+      window.removeEventListener("storage", cargarCarrito);
+      window.removeEventListener("cartUpdated", cargarCarrito);
+    };
   }, []);
 
-  // 💰 Calcular subtotal y guardar valores actualizados en localStorage
+  // 💰 Calcular subtotal y actualizar localStorage cuando cambie el carrito
   useEffect(() => {
     if (carrito.length === 0) {
       setSubtotal(0);
@@ -37,35 +41,42 @@ function Carrito() {
       (acc, prod) => acc + Number(prod.precio) * prod.cantidad,
       0
     );
-    setSubtotal(nuevoSubtotal);
 
+    setSubtotal(nuevoSubtotal);
     const totalActualizado = nuevoSubtotal + costoEnvio;
+
+    // Guardar valores actualizados en localStorage
     localStorage.setItem("carrito", JSON.stringify(carrito));
     localStorage.setItem("subtotal", nuevoSubtotal.toFixed(2));
     localStorage.setItem("total", totalActualizado.toFixed(2));
   }, [carrito]);
 
-  // 🔄 Actualizar cantidad
+  // 🔄 Actualizar cantidad de un producto
   const actualizarCantidad = (id, cantidad) => {
     const nuevoCarrito = carrito.map((item) =>
       item.id === id ? { ...item, cantidad: Number(cantidad) } : item
     );
     setCarrito(nuevoCarrito);
+    localStorage.setItem("carrito", JSON.stringify(nuevoCarrito)); // ✅ Guardar de inmediato
+    window.dispatchEvent(new Event("cartUpdated"));
   };
 
-  // ❌ Eliminar producto
+  // ❌ Eliminar producto del carrito
   const eliminarProducto = (id) => {
     const nuevoCarrito = carrito.filter((item) => item.id !== id);
     setCarrito(nuevoCarrito);
+    localStorage.setItem("carrito", JSON.stringify(nuevoCarrito)); // ✅ Guardar de inmediato
+    window.dispatchEvent(new Event("cartUpdated"));
   };
 
   // 🧾 Total con envío
   const total = subtotal + costoEnvio;
 
-  // 🚀 Ir a checkout
+  // 🚀 Ir al checkout
   const handleContinuar = () => {
     localStorage.setItem("subtotal", subtotal.toFixed(2));
     localStorage.setItem("total", total.toFixed(2));
+    window.dispatchEvent(new Event("cartUpdated")); // 🔄 Avisar a otros componentes
     navigate("/checkout");
   };
 
@@ -108,11 +119,13 @@ function Carrito() {
                             actualizarCantidad(prod.id, e.target.value)
                           }
                         >
-                          {[...Array(prod.cantidad_max || 10).keys()].map((n) => (
-                            <option key={n + 1} value={n + 1}>
-                              {n + 1}
-                            </option>
-                          ))}
+                          {[...Array(prod.cantidad_max || 10).keys()].map(
+                            (n) => (
+                              <option key={n + 1} value={n + 1}>
+                                {n + 1}
+                              </option>
+                            )
+                          )}
                         </select>
                       </td>
                       <td>Q{(prod.precio * prod.cantidad).toFixed(2)}</td>

@@ -61,3 +61,14 @@ input {
 .btn-continuar:hover {
   background-color: #256533;
 }
+
+.mensaje-error {
+  background-color: #ffe6e6;
+  color: #c00;
+  border: 1px solid #ffb3b3;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-weight: 500;
+}
