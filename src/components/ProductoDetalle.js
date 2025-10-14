@@ -9,14 +9,14 @@ function ProductoDetalle() {
 
   useEffect(() => {
     fetch(`http://localhost:5000/api/productos/${id}`)
-      .then(res => res.json())
-      .then(data => setProducto(data))
-      .catch(err => console.error("Error al cargar producto:", err));
+      .then((res) => res.json())
+      .then((data) => setProducto(data))
+      .catch((err) => console.error("Error al cargar producto:", err));
   }, [id]);
 
   const agregarAlCarrito = () => {
     const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-    const existente = carrito.find(item => item.id === producto.id);
+    const existente = carrito.find((item) => item.id === producto.id);
 
     if (existente) {
       existente.cantidad += cantidad;
@@ -42,10 +42,20 @@ function ProductoDetalle() {
         </div>
 
         <div className="detalle-info-box">
-          <h2>{producto.nombre}{" "}<span className="precio">- Q{Number(producto.precio).toFixed(2)}</span></h2>
+          <h2>
+            {producto.nombre}{" "}
+            <span className="precio">- Q{Number(producto.precio).toFixed(2)}</span>
+          </h2>
+
           <p className="descripcion">{producto.descripcion}</p>
-          <p className="categoria"><strong>Categoría:</strong> {producto.categoria}</p>
-          <p className="stock"><strong>Disponibles:</strong> {producto.cantidad}</p>
+          <p className="categoria">
+            <strong>Categoría:</strong> {producto.categoria}
+          </p>
+
+          {/* 🔹 Cambiado de cantidad → stock */}
+          <p className="stock">
+            <strong>Disponibles:</strong> {producto.stock}
+          </p>
 
           <div className="cantidad-section">
             <label htmlFor="cantidad">Cantidad</label>
@@ -54,9 +64,14 @@ function ProductoDetalle() {
               value={cantidad}
               onChange={(e) => setCantidad(Number(e.target.value))}
             >
-              {Array.from({ length: producto.cantidad }, (_, i) => i + 1).map(num => (
-                <option key={num} value={num}>{num}</option>
-              ))}
+              {/* 🔹 También aquí cambiamos cantidad → stock */}
+              {Array.from({ length: producto.stock || 0 }, (_, i) => i + 1).map(
+                (num) => (
+                  <option key={num} value={num}>
+                    {num}
+                  </option>
+                )
+              )}
             </select>
           </div>
 
@@ -70,6 +85,7 @@ function ProductoDetalle() {
 }
 
 export default ProductoDetalle;
+
 
 
 
