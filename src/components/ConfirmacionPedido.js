@@ -10,17 +10,26 @@ export default function ConfirmacionPedido({ pedido }) {
     );
   }
 
-  const { numeroPedido, cliente, carrito, subtotal, envio, total } = pedido;
+  const {
+    numeroPedido,
+    cliente = {},
+    carrito = [],
+    subtotal = 0,
+    envio = 0,
+    total = 0,
+    fecha
+  } = pedido;
 
   return (
     <div className="confirmacion-container">
       <div className="confirmacion-card">
         <h2>✅ ¡Pedido confirmado!</h2>
-        <p>Gracias por tu compra, {cliente.nombre} 🎉</p>
+        <p>Gracias por tu compra, {cliente.nombre || "Cliente"} 🎉</p>
 
         <div className="pedido-info">
           <p><strong>Número de pedido:</strong> {numeroPedido}</p>
-          <p><strong>Fecha:</strong> {new Date(pedido.fecha).toLocaleString()}</p>
+          <p><strong>Fecha:</strong> {fecha ? new Date(fecha).toLocaleString() : "No disponible"}</p>
+          <p><strong>Dirección de entrega:</strong> {cliente.direccion || "No disponible"}</p>
         </div>
 
         <h3>Detalles del pedido</h3>
@@ -40,10 +49,9 @@ export default function ConfirmacionPedido({ pedido }) {
         </div>
 
         <p className="mensaje-final">
-          Te contactaremos al número <strong>{cliente.telefono}</strong> o correo <strong>{cliente.email}</strong> para coordinar la entrega.
+          Te contactaremos al número <strong>{cliente.telefono || "No disponible"}</strong> o correo <strong>{cliente.email || cliente.correo || "No disponible"}</strong> para coordinar la entrega.
         </p>
       </div>
     </div>
   );
 }
-

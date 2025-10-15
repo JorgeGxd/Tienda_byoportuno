@@ -17,8 +17,6 @@ function Carrito() {
   // 🔁 Cargar carrito al iniciar y escuchar cambios
   useEffect(() => {
     cargarCarrito();
-
-    // Escucha cambios del carrito (otras pestañas o componentes)
     window.addEventListener("storage", cargarCarrito);
     window.addEventListener("cartUpdated", cargarCarrito);
 
@@ -45,19 +43,23 @@ function Carrito() {
     setSubtotal(nuevoSubtotal);
     const totalActualizado = nuevoSubtotal + costoEnvio;
 
-    // Guardar valores actualizados en localStorage
     localStorage.setItem("carrito", JSON.stringify(carrito));
     localStorage.setItem("subtotal", nuevoSubtotal.toFixed(2));
     localStorage.setItem("total", totalActualizado.toFixed(2));
   }, [carrito]);
 
-  // 🔄 Actualizar cantidad de un producto
+  // 🔄 Actualizar cantidad de un producto (respetando el stock máximo)
   const actualizarCantidad = (id, cantidad) => {
-    const nuevoCarrito = carrito.map((item) =>
-      item.id === id ? { ...item, cantidad: Number(cantidad) } : item
-    );
+    const nuevoCarrito = carrito.map((item) => {
+      if (item.id === id) {
+        const nuevaCantidad = Math.min(Number(cantidad), item.stock || 1);
+        return { ...item, cantidad: nuevaCantidad };
+      }
+      return item;
+    });
+
     setCarrito(nuevoCarrito);
-    localStorage.setItem("carrito", JSON.stringify(nuevoCarrito)); // ✅ Guardar de inmediato
+    localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
     window.dispatchEvent(new Event("cartUpdated"));
   };
 
@@ -65,7 +67,7 @@ function Carrito() {
   const eliminarProducto = (id) => {
     const nuevoCarrito = carrito.filter((item) => item.id !== id);
     setCarrito(nuevoCarrito);
-    localStorage.setItem("carrito", JSON.stringify(nuevoCarrito)); // ✅ Guardar de inmediato
+    localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
     window.dispatchEvent(new Event("cartUpdated"));
   };
 
@@ -76,7 +78,7 @@ function Carrito() {
   const handleContinuar = () => {
     localStorage.setItem("subtotal", subtotal.toFixed(2));
     localStorage.setItem("total", total.toFixed(2));
-    window.dispatchEvent(new Event("cartUpdated")); // 🔄 Avisar a otros componentes
+    window.dispatchEvent(new Event("cartUpdated"));
     navigate("/checkout");
   };
 
@@ -87,7 +89,7 @@ function Carrito() {
           <h2>Carrito de compras</h2>
 
           {carrito.length === 0 ? (
-            <p className="vacio">Tu carrito está vacío 🛒</p>
+            <p className="vacio">Tu carrito está vacío </p>
           ) : (
             <>
               <table className="tabla-carrito">
@@ -101,44 +103,52 @@ function Carrito() {
                   </tr>
                 </thead>
                 <tbody>
-                  {carrito.map((prod) => (
-                    <tr key={prod.id}>
-                      <td className="col-item">
-                        <img
-                          src={prod.imagen_url}
-                          alt={prod.nombre}
-                          className="img-item"
-                        />
-                        <span>{prod.nombre}</span>
-                      </td>
-                      <td>Q{Number(prod.precio).toFixed(2)}</td>
-                      <td>
-                        <select
-                          value={prod.cantidad}
-                          onChange={(e) =>
-                            actualizarCantidad(prod.id, e.target.value)
-                          }
-                        >
-                          {[...Array(prod.cantidad_max || 10).keys()].map(
-                            (n) => (
-                              <option key={n + 1} value={n + 1}>
-                                {n + 1}
-                              </option>
-                            )
+                  {carrito.map((prod) => {
+                    const maxCantidad = prod.stock > 0 ? prod.stock : 1;
+
+                    return (
+                      <tr key={prod.id}>
+                        <td className="col-item">
+                          <img
+                            src={prod.imagen_url}
+                            alt={prod.nombre}
+                            className="img-item"
+                          />
+                          <span>{prod.nombre}</span>
+                        </td>
+                        <td>Q{Number(prod.precio).toFixed(2)}</td>
+                        <td>
+                          <select
+                            value={prod.cantidad}
+                            onChange={(e) =>
+                              actualizarCantidad(prod.id, e.target.value)
+                            }
+                            disabled={prod.stock === 0}
+                          >
+                            {Array.from({ length: maxCantidad }, (_, i) => i + 1).map(
+                              (n) => (
+                                <option key={n} value={n}>
+                                  {n}
+                                </option>
+                              )
+                            )}
+                          </select>
+                          {prod.stock === 0 && (
+                            <span className="agotado-texto">Sin stock</span>
                           )}
-                        </select>
-                      </td>
-                      <td>Q{(prod.precio * prod.cantidad).toFixed(2)}</td>
-                      <td>
-                        <button
-                          className="btn-eliminar"
-                          onClick={() => eliminarProducto(prod.id)}
-                        >
-                          ❌
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                        </td>
+                        <td>Q{(prod.precio * prod.cantidad).toFixed(2)}</td>
+                        <td>
+                          <button
+                            className="btn-eliminar"
+                            onClick={() => eliminarProducto(prod.id)}
+                          >
+                            ❌
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
 
@@ -174,5 +184,3 @@ function Carrito() {
 }
 
 export default Carrito;
-
-

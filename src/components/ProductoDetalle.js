@@ -30,6 +30,8 @@ function ProductoDetalle() {
 
   if (!producto) return <p className="cargando">Cargando detalles...</p>;
 
+  const sinStock = producto.stock === 0;
+
   return (
     <div className="detalle-contenedor">
       <div className="detalle-flex">
@@ -52,31 +54,44 @@ function ProductoDetalle() {
             <strong>Categoría:</strong> {producto.categoria}
           </p>
 
-          {/* 🔹 Cambiado de cantidad → stock */}
           <p className="stock">
-            <strong>Disponibles:</strong> {producto.stock}
+            <strong>Disponibles:</strong>{" "}
+            {sinStock ? (
+              <span className="agotado-texto">Producto agotado</span>
+            ) : (
+              producto.stock
+            )}
           </p>
 
-          <div className="cantidad-section">
-            <label htmlFor="cantidad">Cantidad</label>
-            <select
-              id="cantidad"
-              value={cantidad}
-              onChange={(e) => setCantidad(Number(e.target.value))}
-            >
-              {/* 🔹 También aquí cambiamos cantidad → stock */}
-              {Array.from({ length: producto.stock || 0 }, (_, i) => i + 1).map(
-                (num) => (
-                  <option key={num} value={num}>
-                    {num}
-                  </option>
-                )
-              )}
-            </select>
-          </div>
+          {!sinStock && (
+            <div className="cantidad-section">
+              <label htmlFor="cantidad">Cantidad</label>
+              <select
+                id="cantidad"
+                value={cantidad}
+                onChange={(e) => setCantidad(Number(e.target.value))}
+              >
+                {Array.from({ length: producto.stock }, (_, i) => i + 1).map(
+                  (num) => (
+                    <option key={num} value={num}>
+                      {num}
+                    </option>
+                  )
+                )}
+              </select>
+            </div>
+          )}
 
-          <button className="btn-agregar" onClick={agregarAlCarrito}>
-            🛒 Añadir al carrito
+          <button
+            className="btn-agregar"
+            onClick={agregarAlCarrito}
+            disabled={sinStock}
+            style={{
+              backgroundColor: sinStock ? "#ccc" : "",
+              cursor: sinStock ? "not-allowed" : "pointer",
+            }}
+          >
+            {sinStock ? "🚫 No disponible" : "🛒 Añadir al carrito"}
           </button>
         </div>
       </div>
@@ -85,7 +100,3 @@ function ProductoDetalle() {
 }
 
 export default ProductoDetalle;
-
-
-
-

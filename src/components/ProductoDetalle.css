@@ -97,3 +97,9 @@
   font-size: 1.2rem;
   margin-top: 100px;
 }
+
+.agotado-texto {
+  color: red;
+  font-weight: bold;
+}
+
