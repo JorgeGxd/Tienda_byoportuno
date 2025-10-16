@@ -5,7 +5,8 @@
   padding-bottom: 3rem;
 }
 
-.catalogo-banner img{
+/* 🖼️ Banner */
+.catalogo-banner img {
   width: 100%;
   max-height: 300px;
   object-fit: cover;
@@ -13,6 +14,7 @@
   margin-bottom: 30px;
 }
 
+/* 🔍 Sección de título y controles */
 .titulo-section {
   display: flex;
   justify-content: space-between;
@@ -28,6 +30,30 @@
   font-family: "Fredoka One", cursive;
 }
 
+.busqueda-y-orden {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* 🔎 Barra de búsqueda */
+.busqueda-y-orden input {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 50px;
+  font-size: 1rem;
+  width: 220px;
+  transition: all 0.3s ease;
+}
+
+.busqueda-y-orden input:focus {
+  outline: none;
+  border-color: #588157;
+  box-shadow: 0 0 5px rgba(88, 129, 87, 0.3);
+}
+
+/* 🔽 Botones de orden */
 .botones-orden {
   display: flex;
   gap: 0.6rem;
@@ -54,6 +80,62 @@
   border: 1px solid #588157;
 }
 
+/* 🧩 Botón categorías */
+.boton-categorias {
+  border: 1px solid #ccc;
+  border-radius: 50px;
+  padding: 0.4rem 1rem;
+  background-color: #f5f5f5;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.boton-categorias:hover {
+  background-color: #d9ead3;
+}
+
+/* 📂 Acordeón de categorías */
+.acordeon-categorias {
+  max-width: 300px;
+  margin: 0 auto 2rem auto;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.categoria-item {
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.categoria-item:hover {
+  background-color: #f1f8e9;
+}
+
+.categoria-item.activo {
+  background-color: #588157;
+  color: white;
+}
+
+/* Animación */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 📦 Cuadrícula */
 .catalogo-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -63,6 +145,7 @@
   padding: 0 2rem;
 }
 
+/* 🧱 Tarjetas */
 .producto-card {
   background-color: #fff7d6;
   border-radius: 1rem;
@@ -109,4 +192,49 @@
 .producto-info .descripcion {
   color: #5c5c5c;
   font-size: 0.9rem;
+}
+
+/* 📄 Paginación */
+.paginacion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.paginacion button {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.paginacion button:hover {
+  background-color: #e9f5e4;
+}
+
+.paginacion button.activo {
+  background-color: #588157;
+  color: white;
+  border-color: #588157;
+}
+
+/* 🧭 Indicador de página */
+.pagina-indicador {
+  margin-top: 0.8rem;
+  font-size: 1rem;
+  color: #555;
+  font-weight: 500;
+}
+
+/* 🛒 Sin resultados */
+.sin-resultados {
+  font-size: 1.2rem;
+  color: #888;
+  margin-top: 2rem;
 }

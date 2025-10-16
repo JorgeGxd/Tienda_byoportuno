@@ -1,9 +1,61 @@
 .admin-container {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 40px auto;
   padding: 20px;
+  background-color: #fffdf7;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* 🟢 Pestañas */
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.tabs button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #f1f1f1;
+  cursor: pointer;
+  font-weight: 600;
+  border-radius: 8px 8px 0 0;
+  transition: all 0.3s ease;
+}
+
+.tabs button:hover {
+  background-color: #ffe680;
+}
+
+.tabs button.active {
+  background-color: #f4c542;
+  color: white;
+}
+
+/* 🧩 Contenido de pestañas */
+.tab-content {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 🧾 Formulario */
 .admin-form {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -31,12 +83,14 @@
   background: #e6b800;
 }
 
+/* 📋 Tablas */
 .admin-table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.admin-table th, .admin-table td {
+.admin-table th,
+.admin-table td {
   border: 1px solid #ddd;
   padding: 10px;
   text-align: center;
@@ -44,8 +98,26 @@
 
 .admin-table th {
   background: #f4c542;
+  color: #333;
 }
 
 .admin-table img {
   border-radius: 8px;
+}
+
+.admin-table select {
+  padding: 5px;
+  border-radius: 4px;
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .admin-form {
+    grid-template-columns: 1fr;
+  }
+
+  .tabs {
+    flex-direction: column;
+    align-items: center;
+  }
 }
