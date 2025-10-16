@@ -37,7 +37,7 @@ function ProductoDetalle() {
       <div className="detalle-flex">
         <div className="detalle-imagen-box">
           <img
-            src={producto.imagen_url || `http://localhost:5000${producto.imagen}`}
+            src={producto.imagen?.startsWith("http")?producto.imagen:`http://localhost:5000${producto.imagen}`}
             alt={producto.nombre}
             className="detalle-imagen"
           />

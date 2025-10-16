@@ -110,7 +110,7 @@ function Carrito() {
                       <tr key={prod.id}>
                         <td className="col-item">
                           <img
-                            src={prod.imagen_url}
+                            src={prod.imagen?.startsWith("http")?prod.imagen:'http://localhost:5000{prod.imagen}'}
                             alt={prod.nombre}
                             className="img-item"
                           />

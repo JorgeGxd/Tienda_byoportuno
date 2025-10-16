@@ -89,7 +89,8 @@ function Catalogo() {
             onClick={() => navigate(`/producto/${prod.id}`)}
           >
             <div className="imagen-container">
-              <img src={prod.imagen_url} alt={prod.nombre} />
+              <img src={ prod.imagen?.startsWith("http")? prod.imagen: `http://localhost:5000${prod.imagen}`}
+  alt={prod.nombre} />
             </div>
             <div className="producto-info">
               <h3>{prod.nombre}</h3>
