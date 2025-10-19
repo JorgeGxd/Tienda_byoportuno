@@ -8,9 +8,11 @@ import pedidosRoutes from "./Pedidos.js"; // ✅ Importa el router de pedidos
 import multer from "multer";
 import path from "path";
 import { fileURLToPath } from "url";
+import dotenv from "dotenv";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+dotenv.config()
 
 const app = express();
 
@@ -20,10 +22,11 @@ app.use(express.json());
 
 // ✅ Conexión a la base de datos
 export const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "junio152001",
-  database: "tienda",
+  host: process.env.HOSTDB,
+  user: process.env.USERDB,
+  password: process.env.PASSWORDDB,
+  database: process.env.DATABASE,
+  port: process.env.PORTDB,
   decimalNumbers: true, // ✅ convierte DECIMAL en números automáticamente
 });
 

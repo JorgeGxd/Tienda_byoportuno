@@ -2,15 +2,19 @@ import express from "express";
 import mysql from "mysql2";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
 const router = express.Router();
+dotenv.config()
 
 // Conexión a BD
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "junio152001",
-  database: "tienda"
+  host: process.env.HOSTDB,
+  user: process.env.USERDB,
+  password: process.env.PASSWORDDB,
+  database: process.env.DATABASE,
+  port: process.env.PORTDB,
+  decimalNumbers: true, // ✅ convierte DECIMAL en números automáticamente
 });
 
 // 🔹 Login
