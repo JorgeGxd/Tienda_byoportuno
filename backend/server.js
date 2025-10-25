@@ -12,12 +12,20 @@ import dotenv from "dotenv";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-dotenv.config()
+dotenv.config();
 
 const app = express();
 
-// ✅ Middleware
-app.use(cors({ origin: "http://localhost:3000" }));
+// ✅ Middleware CORS actualizado
+app.use(cors({
+  origin: [
+    "http://localhost:3000",             // Desarrollo local
+    "https://tienda-byoportuno.vercel.app" // Producción en Vercel
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
+
 app.use(express.json());
 
 // ✅ Conexión a la base de datos
@@ -27,7 +35,7 @@ export const db = mysql.createConnection({
   password: process.env.PASSWORDDB,
   database: process.env.DATABASE,
   port: process.env.PORTDB,
-  decimalNumbers: true, // ✅ convierte DECIMAL en números automáticamente
+  decimalNumbers: true, // Convierte DECIMAL en números automáticamente
 });
 
 // ✅ Configuración de multer
@@ -43,7 +51,7 @@ const upload = multer({ storage });
 
 // ✅ Rutas principales
 app.use("/auth", authRoutes);
-app.use("/api/pedidos", pedidosRoutes); // ✅ Ruta funcional para pedidos
+app.use("/api/pedidos", pedidosRoutes);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // ✅ CRUD de productos
@@ -100,5 +108,7 @@ app.get("/api/productos/:id", (req, res) => {
   });
 });
 
-// ✅ Arranque del servidor
-app.listen(5000, () => console.log("✅ Servidor corriendo en http://18.217.195.162:5000"));
+// ✅ Arranque del servidor - accesible públicamente
+app.listen(5000, "0.0.0.0", () => {
+  console.log("✅ Servidor corriendo en el puerto 5000 y accesible públicamente");
+});
