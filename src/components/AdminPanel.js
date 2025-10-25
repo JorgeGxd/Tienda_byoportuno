@@ -20,7 +20,7 @@ function AdminPanel() {
   // 🧾 Cargar productos
   const fetchProductos = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/productos");
+      const res = await fetch("http://18.217.195.162:5000/api/productos");
       const data = await res.json();
       setProductos(data);
     } catch (error) {
@@ -31,7 +31,7 @@ function AdminPanel() {
   // 🧾 Cargar pedidos
   const fetchPedidos = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/pedidos");
+      const res = await fetch("http://18.217.195.162:5000/api/pedidos");
       const data = await res.json();
       setPedidos(data);
     } catch (error) {
@@ -55,8 +55,8 @@ function AdminPanel() {
 
     const method = editId ? "PUT" : "POST";
     const url = editId
-      ? `http://localhost:5000/api/productos/${editId}`
-      : "http://localhost:5000/api/productos";
+      ? `http://18.217.195.162:5000/api/productos/${editId}`
+      : "http://18.217.195.162:5000/api/productos";
 
     try {
       const res = await fetch(url, {
@@ -109,7 +109,7 @@ function AdminPanel() {
     if (!window.confirm("¿Seguro que deseas eliminar este producto?")) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/api/productos/${id}`, {
+      const res = await fetch(`http://18.217.195.162:5000/api/productos/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -126,7 +126,7 @@ function AdminPanel() {
   // 🔄 Cambiar estado del pedido
   const handleEstadoChange = async (id_pedido, nuevoEstado) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/pedidos/${id_pedido}`, {
+      const res = await fetch(`http://18.217.195.162:5000/api/pedidos/${id_pedido}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

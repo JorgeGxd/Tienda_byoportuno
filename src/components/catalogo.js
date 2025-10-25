@@ -15,7 +15,7 @@ function Catalogo() {
 
   // 🔄 Cargar productos del backend
   useEffect(() => {
-    fetch("http://localhost:5000/api/productos")
+    fetch("http://18.217.195.162:5000/api/productos")
       .then((res) => res.json())
       .then((data) => setProductos(data))
       .catch((err) => console.error("Error al cargar productos:", err));
@@ -170,7 +170,7 @@ function Catalogo() {
                   src={
                     prod.imagen?.startsWith("http")
                       ? prod.imagen
-                      : `http://localhost:5000${prod.imagen}`
+                      : `http://18.217.195.162:5000${prod.imagen}`
                   }
                   alt={prod.nombre}
                 />

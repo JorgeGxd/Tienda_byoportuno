@@ -8,7 +8,7 @@ function ProductoDetalle() {
   const [cantidad, setCantidad] = useState(1);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/productos/${id}`)
+    fetch(`http://18.217.195.162:5000/api/productos/${id}`)
       .then((res) => res.json())
       .then((data) => setProducto(data))
       .catch((err) => console.error("Error al cargar producto:", err));
@@ -37,7 +37,7 @@ function ProductoDetalle() {
       <div className="detalle-flex">
         <div className="detalle-imagen-box">
           <img
-            src={producto.imagen?.startsWith("http")?producto.imagen:`http://localhost:5000${producto.imagen}`}
+            src={producto.imagen?.startsWith("http")?producto.imagen:`http://18.217.195.162:5000${producto.imagen}`}
             alt={producto.nombre}
             className="detalle-imagen"
           />

@@ -101,4 +101,4 @@ app.get("/api/productos/:id", (req, res) => {
 });
 
 // ✅ Arranque del servidor
-app.listen(5000, () => console.log("✅ Servidor corriendo en http://localhost:5000"));
+app.listen(5000, () => console.log("✅ Servidor corriendo en http://18.217.195.162:5000"));

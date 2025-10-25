@@ -68,7 +68,7 @@ export default function Checkout() {
     const pedido = { numeroPedido, subtotal, envio, total, fecha, cliente, carrito };
 
     try {
-      const response = await fetch("http://localhost:5000/api/pedidos", {
+      const response = await fetch("http://18.217.195.162:5000/api/pedidos", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(pedido),
